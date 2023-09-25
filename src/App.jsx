@@ -1,23 +1,17 @@
 import React, { useState } from 'react'
-import Editor, { loader } from '@monaco-editor/react'
+import Editor from '@monaco-editor/react'
 import JsonToTS from 'json-to-ts'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { message, Button, FloatButton, Drawer, Space, Select, Typography } from 'antd'
-import { DeleteFilled, CopyFilled, CustomerServiceOutlined, SettingOutlined, CommentOutlined } from './icons'
-import { BsBrightnessHigh, BsMoonFill } from 'react-icons/bs'
+import { message, Button, FloatButton } from 'antd'
+import { DeleteFilled, CopyFilled, SettingOutlined, BsBrightnessHigh, BsMoonFill } from './icons'
 
-
-loader.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } })
-
-const { Link } = Typography
 
 function App() {
   const [value, setValue] = useState('')
   const [output, setOutput] = useState('')
-  const [open, setOpen] = useState(false)
-  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'light')
+  const [theme, setTheme] = useState('light')
 
-  const handleSubmit = () => {
+  const jsonToTypeScript = () => {
     const output = JsonToTS(JSON.parse(value))
       .reduce((type1, type2) => {
         return `${type1}\n\n${type2}`
@@ -25,11 +19,6 @@ function App() {
       .trim()
     setOutput(output)
   }
-  const handleChange = value => {
-    localStorage.setItem('theme', value)
-    setTheme(value)
-  }
-
   return (
     <>
       <main className="app">
@@ -37,7 +26,7 @@ function App() {
           <div className="header">
             <h3>JSON</h3>
             <div className="header__right">
-              <Button type="primary" size="large" className="runBtn" onClick={handleSubmit}>
+              <Button type="primary" className="runBtn" onClick={jsonToTypeScript}>
                 运行
               </Button>
               <Button
@@ -114,8 +103,8 @@ function App() {
         }
         tooltip={<div>设置</div>}
       >
-        <FloatButton icon={<BsBrightnessHigh />} onClick={() => handleChange('light')} />
-        <FloatButton icon={<BsMoonFill />} onClick={() => handleChange('vs-dark')} />
+        <FloatButton icon={<BsBrightnessHigh />} onClick={() => setTheme('light')} />
+        <FloatButton icon={<BsMoonFill />} onClick={() => setTheme('vs-dark')} />
       </FloatButton.Group>
     </>
   )

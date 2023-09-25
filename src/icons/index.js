@@ -4,5 +4,6 @@ import SettingOutlined from '~icons/ant-design/setting-outlined'
 import GithubOutlined from '~icons/ant-design/github-outlined'
 import CustomerServiceOutlined from '~icons/ant-design/customer-service-outlined'
 import CommentOutlined from '~icons/ant-design/comment-outlined'
+import { BsBrightnessHigh, BsMoonFill } from 'react-icons/bs'
 
-export { DeleteFilled, CopyFilled, SettingOutlined, GithubOutlined, CustomerServiceOutlined, CommentOutlined}
+export { DeleteFilled, CopyFilled, SettingOutlined, GithubOutlined, CustomerServiceOutlined, CommentOutlined, BsBrightnessHigh, BsMoonFill}

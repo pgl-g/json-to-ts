@@ -3,7 +3,9 @@ import Editor, { loader } from '@monaco-editor/react'
 import JsonToTS from 'json-to-ts'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { message, Button, FloatButton, Drawer, Space, Select, Typography } from 'antd'
-import { DeleteFilled, CopyFilled, SettingOutlined, GithubOutlined } from './icons'
+import { DeleteFilled, CopyFilled, CustomerServiceOutlined, SettingOutlined, CommentOutlined } from './icons'
+import { BsBrightnessHigh, BsMoonFill } from 'react-icons/bs'
+
 
 loader.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' } })
 
@@ -22,12 +24,6 @@ function App() {
       })
       .trim()
     setOutput(output)
-  }
-  const showDrawer = () => {
-    setOpen(true)
-  }
-  const onClose = () => {
-    setOpen(false)
   }
   const handleChange = value => {
     localStorage.setItem('theme', value)
@@ -104,7 +100,10 @@ function App() {
           </div>
         </div>
       </main>
-      <FloatButton
+      {/* 浮动按钮 */}
+      <FloatButton.Group
+        trigger="hover"
+        type="primary"
         icon={
           <SettingOutlined
             style={{
@@ -113,41 +112,11 @@ function App() {
             }}
           />
         }
-        onClick={showDrawer}
         tooltip={<div>设置</div>}
-      />
-      <Drawer title="设置" placement="right" onClose={onClose} open={open}>
-        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-          <Space size="large">
-            仓库地址
-            <Link
-              href="https://github.com/dselegent/JSON-TO-TS"
-              target="_blank"
-              style={{
-                color: '#000',
-              }}
-            >
-              <GithubOutlined
-                style={{
-                  fontSize: '22px',
-                }}
-              />
-            </Link>
-          </Space>
-          <Space size="large">
-            主题
-            <Select
-              defaultValue={theme}
-              style={{ width: 120 }}
-              onChange={handleChange}
-              options={[
-                { value: 'light', label: 'light' },
-                { value: 'vs-dark', label: 'vs-dark' },
-              ]}
-            />
-          </Space>
-        </Space>
-      </Drawer>
+      >
+        <FloatButton icon={<BsBrightnessHigh />} onClick={() => handleChange('light')} />
+        <FloatButton icon={<BsMoonFill />} onClick={() => handleChange('vs-dark')} />
+      </FloatButton.Group>
     </>
   )
 }
